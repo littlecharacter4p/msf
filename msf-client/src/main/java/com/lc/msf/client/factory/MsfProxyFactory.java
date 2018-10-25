@@ -1,42 +1,37 @@
 package com.lc.msf.client.factory;
 
+import com.lc.msf.protocol.RpcRequest;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MsfProxyFactory {
     private static ConcurrentHashMap<String, Object> proxyMap = new ConcurrentHashMap<>();
 
-    public static <T> T create(Class<?> type, String strUrl) {
-        return create(type, strUrl, false);
-    }
-
-    public static <T> T create(Class<?> type, String strUrl, boolean async) {//<T> T返回任意类型的数据？  返回代理的实例  泛型
-        String key = strUrl.toLowerCase();
-        Object proxy = null;
-        if (async) {
-            if (asyncCache.containsKey(key)) {
-                proxy = asyncCache.get(key);
-            }
-            if (proxy == null) {
-                proxy = createStandardProxy(strUrl, type, async);
-                if (proxy != null) {
-                    asyncCache.put(key, proxy);
-                }
-            }
+    public static <T> T create(Class<?> clazz) {
+        String key = clazz.getName();
+        Object proxy;
+        if (proxyMap.containsKey(key)) {
+            proxy = proxyMap.get(key);
         } else {
-            if (cache.containsKey(key)) {
-                proxy = cache.get(key);
-            }
-            if (proxy == null) {
-                proxy = createStandardProxy(strUrl, type);
-                if (proxy != null) {
-                    cache.put(key, proxy);
-                }
-            }
+            proxy = Proxy.newProxyInstance(clazz.getClassLoader(),
+                    new Class<?>[]{clazz}, new InvocationHandler() {
+                        @Override
+                        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                            RpcRequest rpcRequest = new RpcRequest();
+                            rpcRequest.setClassName(method.getDeclaringClass().getName());
+                            rpcRequest.setMethodName(method.getName());
+                            rpcRequest.setTypes(method.getParameterTypes());
+                            rpcRequest.setParams(args);
+                            return null;
+                        }
+                    });
         }
-        return (T)proxy;
-    }
-
-    private static Object createStandardProxy(String strUrl, Class<?> type) {
-        return createStandardProxy(strUrl, type, false);
+        if (proxy != null) {
+            proxyMap.put(key, proxy);
+        }
+        return (T) proxy;
     }
 }
