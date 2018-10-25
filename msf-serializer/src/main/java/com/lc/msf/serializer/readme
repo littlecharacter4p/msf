@@ -1,0 +1,2 @@
+这里先不用当序列化，直接用jdk的，以后再改
+常用的三方序列化框架：hessian、kryo、protostuff等
