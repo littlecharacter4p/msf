@@ -1,4 +1,4 @@
-package com.lc.msf.server.bootstrap;
+package com.lc.msf.container.bootstrap;
 
 public class Main {
 	public static void main(String[] args) throws Exception {

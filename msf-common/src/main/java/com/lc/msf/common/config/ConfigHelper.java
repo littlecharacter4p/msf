@@ -4,20 +4,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class ConfigCenter {
+public class ConfigHelper {
     private Properties properties;
 
-    private ConfigCenter() {
+    private ConfigHelper() {
         properties = new Properties();
     }
 
     private static class ConfigCenterInner {
         private ConfigCenterInner() {}
-        private final static ConfigCenter configCenter = new ConfigCenter();
+        private final static ConfigHelper CONFIG_HELPER = new ConfigHelper();
     }
 
-    public static ConfigCenter getInstance() {
-        return ConfigCenterInner.configCenter;
+    public static ConfigHelper getInstance() {
+        return ConfigCenterInner.CONFIG_HELPER;
     }
 
     public void initProperties(InputStream... inputStreams) throws IOException {

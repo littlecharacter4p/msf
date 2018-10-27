@@ -16,6 +16,7 @@
         <module>msf-register</module>
         <module>msf-common</module>
         <module>msf-demo</module>
+        <module>msf-container</module>
     </modules>
 
     <build>

@@ -1,7 +1,7 @@
 package com.lc.msf.register.impl;
 
 import com.lc.msf.register.ServiceRegistry;
-import com.lc.msf.common.config.ConfigCenter;
+import com.lc.msf.common.config.ConfigHelper;
 import com.lc.msf.common.constant.Constants;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -13,7 +13,7 @@ public class ZkServiceRegistry implements ServiceRegistry {
 
     public ZkServiceRegistry() {
         zkClient = CuratorFrameworkFactory.builder()
-                .connectString(ConfigCenter.getInstance().getString(Constants.ZK_ADDRESS))
+                .connectString(ConfigHelper.getInstance().getString(Constants.ZK_ADDRESS))
                 .sessionTimeoutMs(3000)
                 .retryPolicy(new ExponentialBackoffRetry(1000, 3))
                 .build();

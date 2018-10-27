@@ -1,6 +1,6 @@
 package com.lc.msf.discover.impl;
 
-import com.lc.msf.common.config.ConfigCenter;
+import com.lc.msf.common.config.ConfigHelper;
 import com.lc.msf.common.constant.Constants;
 import com.lc.msf.discover.ServiceDiscovery;
 import org.apache.curator.framework.CuratorFramework;
@@ -18,7 +18,7 @@ public class ZkServiceDiscovery implements ServiceDiscovery {
 
     public ZkServiceDiscovery() {
         zkClient = CuratorFrameworkFactory.builder()
-                .connectString(ConfigCenter.getInstance().getString(Constants.ZK_ADDRESS))
+                .connectString(ConfigHelper.getInstance().getString(Constants.ZK_ADDRESS))
                 .sessionTimeoutMs(3000)
                 .retryPolicy(new ExponentialBackoffRetry(1000, 3))
                 .build();
