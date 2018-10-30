@@ -18,5 +18,10 @@
             <artifactId>msf-client</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.lc</groupId>
+            <artifactId>msf-demo-contract</artifactId>
+            <version>1.0.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>
