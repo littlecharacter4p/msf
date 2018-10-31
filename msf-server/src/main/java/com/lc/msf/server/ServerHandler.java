@@ -10,7 +10,7 @@ public class ServerHandler extends ChannelHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         RpcRequest request = (RpcRequest) msg;
         System.out.println(JSON.toJSONString(request));
-        // TODO 自定义ClassLoader，把服务的具体实现，加载到工厂，这里获取，通过反射调用
+        // TODO 自定义ClassLoader，把服务的具体实现，加载到代理工厂，这里获取，通过反射调用
         ctx.writeAndFlush("hello");
     }
 
