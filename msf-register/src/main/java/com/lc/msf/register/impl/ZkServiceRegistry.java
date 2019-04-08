@@ -13,7 +13,7 @@ public class ZkServiceRegistry implements ServiceRegistry {
 
     public ZkServiceRegistry() {
         zkClient = CuratorFrameworkFactory.builder()
-                .connectString(ConfigHelper.getInstance().getString(Constants.ZK_ADDRESS))
+                .connectString(ConfigHelper.getInstance().getProperty(Constants.ZK_ADDRESS))
                 .sessionTimeoutMs(3000)
                 .retryPolicy(new ExponentialBackoffRetry(1000, 3))
                 .build();

@@ -11,12 +11,12 @@
     <modules>
         <module>msf-client</module>
         <module>msf-server</module>
+        <module>msf-container</module>
         <module>msf-protocol</module>
-        <module>msf-serializer</module>
         <module>msf-register</module>
+        <module>msf-remoting</module>
         <module>msf-common</module>
         <module>msf-demo</module>
-        <module>msf-container</module>
     </modules>
 
     <dependencies>
